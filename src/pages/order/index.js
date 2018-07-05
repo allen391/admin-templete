@@ -9,10 +9,11 @@ class Order extends Component {
   constructor(props) {
     super(props)
     this.state = {
-       list: [],
-       pagination: '',
-       orderConfirmVisble: false,
-       orderInfo: {}
+      list: [],
+      pagination: '',
+      orderConfirmVisible: false,
+      orderInfo: {},
+      selectedRowKeys: []
     };
   };
   componentDidMount(){
@@ -45,39 +46,66 @@ class Order extends Component {
     })
   }
   handleClick = () => {
+    let item = this.state.selectedItem
+    if (!item) {
+      Modal.info({
+        title: 'Info',
+        content: 'Select your Order'
+      })
+      return
+    }
     axios.ajax({
       url:'/order/ebike_info',
       data:{
           params:{
-              page: 1
+              orderId: item.id
           }
       }
     }).then((res)=>{
         if(res.code ==0 ){
             this.setState({
                 orderInfo:res.result,
-                orderConfirmVisble: true
+                orderConfirmVisible: true
             })
         }
     })
   }
-
   handleFinishOrder = () =>{
-    //todo
+    let item = this.state.selectedItem
     axios.ajax({
       url: '/order/finish_order',
       data: {
-        params: 1
+        params: {
+          orderId: item.id
+        }
       }
     }).then((res) => {
       if (res.code == 0) {
         message.success('success!')
         this.setState({
-          orderConfirmVisble: false
+          orderConfirmVisible: false
         })
         this.renderItemList()
       }
     })
+  }
+  onRowClick = (record, index) => {
+    let selectedKey = [index]
+    this.setState({
+      selectedRowKeys: selectedKey,
+      selectedItem: record
+    })
+  }
+  openOrderDetail = () => {
+    let item = this.state.selectedItem
+    if (!item) {
+      Modal.info({
+        title: 'Info',
+        content: 'select one order'
+      })
+      return
+    }
+    window.open(`#/common/order/detail/${item.id}`, '_blank')
   }
   render() {
     const columns = [
@@ -99,7 +127,10 @@ class Order extends Component {
       },
       {
         title: '里程',
-        dataIndex: 'distance'
+        dataIndex: 'distance',
+        render(distance){
+          return distance/1000 + 'Km'
+        }
       },
       {
         title: '行驶时长',
@@ -130,13 +161,18 @@ class Order extends Component {
       labelCol: {span:5},
       wrapperCol: {span:19}
     }
+    const selectedRowKeys = this.state.selectedRowKeys
+    const rowSelection = {
+      type: 'radio',
+      selectedRowKeys
+    }
     return (
       <div>
         <Card>
           <FilterForm />
         </Card>
         <Card style={{marginTop: 10}}>
-          <Button type="primary">Detail</Button>
+          <Button type="primary" onClick={this.openOrderDetail}>Detail</Button>
           <Button type="primary" style={{marginLeft: 10}} onClick={this.handleClick}>Cancel</Button>
         </Card>
         <div className="content-wrap">
@@ -145,11 +181,19 @@ class Order extends Component {
             columns={columns}
             dataSource={this.state.list}
             pagination={this.state.pagination}
+            rowSelection={rowSelection}
+            onRow={(record, index) => {
+              return {
+                onClick: () => {
+                  this.onRowClick(record, index)
+                }
+              }
+            }}
           />
         </div>
         <Modal
           title="结束订单"
-          visible={this.state.orderConfirmVisble}
+          visible={this.state.orderConfirmVisible}
           onCancel={()=>{
               this.setState({
                   orderConfirmVisble:false

@@ -32,28 +32,39 @@ class Header extends Component {
   //   })
   // }
   render() {
+    const menuType = this.props.menuType
     return (
       <div className="header">
         <Row className="header-top">
-          <Col span="24">
+          {
+            menuType?
+              <Col span="6" className="logo">
+                <img src="/assets/logo-ant.svg" alt=""/>
+                <span>Admin System</span>
+              </Col>:null
+          }
+          <Col span={menuType? 18:24}>
             <span>Welcome, xxx</span>
             <a href="#">Logout</a>
           </Col>
         </Row>
-        <Row className="breadcrumb">
-          <Col span="4" className="breadcrumb-title">
-            HomePage
-          </Col>
-          <Col span="20" className="weather">
-            <span className="date">{this.state.sysTime}</span>
-            <span className="weather-img">
-              <img src="{this.state.dayPictureUrl}" alt=""/>
-            </span>
-            <span className="weather-detail">
-              qing
-            </span>
-          </Col>
-        </Row>
+        {
+          menuType? '':
+          <Row className="breadcrumb">
+            <Col span="4" className="breadcrumb-title">
+              HomePage
+            </Col>
+            <Col span="20" className="weather">
+              <span className="date">{this.state.sysTime}</span>
+              <span className="weather-img">
+                <img src="{this.state.dayPictureUrl}" alt=""/>
+              </span>
+              <span className="weather-detail">
+                qing
+              </span>
+            </Col>
+          </Row>
+        }
       </div>
     )
   }

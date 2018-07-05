@@ -10,6 +10,8 @@ import FormRegister from './pages/form/register';
 import BasicTable from './pages/table/basicTable';
 import City from './pages/city/index';
 import Order from './pages/order/index';
+import Common from './common';
+import OrderDetail from './pages/order/detail';
 
 export default class IRouter extends Component{
   render(){
@@ -30,6 +32,11 @@ export default class IRouter extends Component{
               </Switch>
             </Admin>
           } />
+          <Route path="/common" render={() => 
+            <Common>
+              <Route path="/common/order/detail/:orderId" component={OrderDetail}/>
+            </Common>
+          }/>
         </App>
       </HashRouter>
     )
