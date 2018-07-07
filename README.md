@@ -9,14 +9,15 @@ npm i
 npm start 
 ```
 ### Encapsulate some common features for admin website 
-- Axios
-- Table
-- Login/Register
-- E-chart
-- Table
-- Search Form
-- Loading interception
-- Google Map
-- Permission setup 
+- [x] Axios
+- [x]Table
+- [ ]Login/Register
+- [ ]E-chart
+- [x]Table
+- [x]Search Form
+- [x]Loading interception
+- [ ]Google Map
+- [ ]Baidu Map
+- [ ]Permission setup 
 
 ### Continuing
