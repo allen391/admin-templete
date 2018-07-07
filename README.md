@@ -13,6 +13,9 @@ npm start
 - Table
 - Login/Register
 - E-chart
+- Table
+- Search Form
+- Loading interception
 - Google Map
 - Permission setup 
 
