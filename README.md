@@ -10,14 +10,22 @@ npm start
 ```
 ### Encapsulate some common features for admin website 
 - [x] Axios
-- [x]Table
-- [ ]Login/Register
-- [ ]E-chart
-- [x]Table
-- [x]Search Form
-- [x]Loading interception
-- [ ]Google Map
-- [ ]Baidu Map
-- [ ]Permission setup 
+- [x] Table
+- [ ] Login/Register
+- [ ] E-chart
+- [x] Table
+- [x] Search Form
+- [x] Loading interception
+- [ ] Google Map
+- [ ] Baidu Map
+- [ ] Permission setup 
+
+### Main desired implemented page
+- [x] Order management
+- [x] City
+- [x] Antd UI
+- [ ] BaiduMap
+- [ ] GoogleMap
+- [ ] Permision setup
 
 ### Continuing
