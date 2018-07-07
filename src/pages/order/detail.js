@@ -3,10 +3,10 @@ import {Card} from 'antd'
 import './detail.less';
 import axios from '../../axios/index';
 
+
 class OrderDetail extends Component {
   constructor(props) {
     super(props)
-  
     this.state = {
        orderInfo: {}
     }
@@ -38,14 +38,14 @@ class OrderDetail extends Component {
   }
   
   renderMap = (result) => {
-    this.map = new window.createImageBitmap.Map('orderDetailMap')
+    this.map = new window.BMap.Map('orderDetailMap')
     this.addMapControl()
     this.drawBikeRoute(result.position_list)
   }
 
   addMapControl = () => {
     let map =  this.map
-    map.addControl(new window.createImageBitmap.ScaleControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
+    map.addControl(new window.BMap.ScaleControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
     map.addControl(new window.BMap.NavigationControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
   }
 
@@ -69,7 +69,7 @@ class OrderDetail extends Component {
         imageSize: new window.BMap.Size(36, 42),
         anchor: new window.BMap.Size(18, 42)
       })
-      let endMarker = new window.BMap.Marker(endPoint, {icon, endIcon})
+      let endMarker = new window.BMap.Marker(endPoint, {icon: endIcon})
       this.map.addOverlay(endMarker)
 
       //connect the route between endpoint with startpoint

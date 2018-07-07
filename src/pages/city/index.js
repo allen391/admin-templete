@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Card, Button, Table, Form, Select, Modal, message} from 'antd';
 import axios from '../../axios/index';
 import Utils from '../../utils/utils';
-import FilterForm from '../../component/FilterForm/index';
+import BaseForm from '../../component/BaseForm/BaseForm';
 
 const Option = Select.Option
 class City extends Component {
@@ -111,7 +111,7 @@ class City extends Component {
     return (
       <div>
         <Card>
-          <FilterForm />
+
         </Card>
         <Card style={{marginTop: 10}}>
           <Button type="primary" onClick={this.handleClick}>开通城市</Button>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import {Card, Button, Table, Form, Select, Modal, message} from 'antd';
-import FilterForm from '../../component/FilterForm/index';
+import BaseForm from '../../component/BaseForm/BaseForm';
 import axios from '../../axios/index';
 import Utils from '../../utils/utils';
 import { POINT_CONVERSION_UNCOMPRESSED } from 'constants';
+import ETable from '../../component/ETable/index';
 
 class Order extends Component {
   constructor(props) {
@@ -12,8 +13,7 @@ class Order extends Component {
       list: [],
       pagination: '',
       orderConfirmVisible: false,
-      orderInfo: {},
-      selectedRowKeys: []
+      orderInfo: {}
     };
   };
   componentDidMount(){
@@ -22,28 +22,32 @@ class Order extends Component {
   params = {
     page: 1
   }
+  formList = [
+    {
+      type: 'SELECT',
+      label: 'City',
+      field: 'city',
+      placeholder: 'All',
+      initialValue: '0',
+      width: 80,
+      list: [{id: '1', name: 'Brisbane'}, {id: '2', name: 'Sydney'}]
+    },
+    {
+      type: 'TIME'
+    },
+    {
+      type: 'SELECT',
+      label: '订单状态',
+      field: 'order_status',
+      placeholder: 'All',
+      initialValue: '0',
+      width: 80,
+      list: [{id: '1', name: '进行中'}, {id: '2', name: '结束行程'}]
+    }
+  ]
   renderItemList = () => {
     let _this = this
-    axios.ajax({
-      url: '/order/list',
-      data: {
-        params: {
-          page: this.params.page
-        }
-      }
-    }).then((res) => {
-      let list = res.result.item_list.map((item, index) => {
-        item.key = index
-        return item
-      })
-      this.setState({
-        list,
-        pagination: Utils.pagination(res, (current) => {
-          _this.params.page = current
-          _this.renderItemList()
-        })
-      })
-    })
+    axios.requestList(this, '/order/list', this.params, true)
   }
   handleClick = () => {
     let item = this.state.selectedItem
@@ -89,13 +93,6 @@ class Order extends Component {
       }
     })
   }
-  onRowClick = (record, index) => {
-    let selectedKey = [index]
-    this.setState({
-      selectedRowKeys: selectedKey,
-      selectedItem: record
-    })
-  }
   openOrderDetail = () => {
     let item = this.state.selectedItem
     if (!item) {
@@ -106,6 +103,10 @@ class Order extends Component {
       return
     }
     window.open(`#/common/order/detail/${item.id}`, '_blank')
+  }
+  handleFilter = (params) => {
+    this.params = params
+    this.renderItemList()
   }
   render() {
     const columns = [
@@ -161,34 +162,25 @@ class Order extends Component {
       labelCol: {span:5},
       wrapperCol: {span:19}
     }
-    const selectedRowKeys = this.state.selectedRowKeys
-    const rowSelection = {
-      type: 'radio',
-      selectedRowKeys
-    }
     return (
       <div>
         <Card>
-          <FilterForm />
+          <BaseForm formList={this.formList} filterSubmit={this.handleFilter}/>
         </Card>
         <Card style={{marginTop: 10}}>
           <Button type="primary" onClick={this.openOrderDetail}>Detail</Button>
           <Button type="primary" style={{marginLeft: 10}} onClick={this.handleClick}>Cancel</Button>
         </Card>
         <div className="content-wrap">
-          <Table 
-            bordered
+          <ETable 
+            updateSelectedItem={Utils.updateSelectedItem.bind(this)}
             columns={columns}
             dataSource={this.state.list}
             pagination={this.state.pagination}
-            rowSelection={rowSelection}
-            onRow={(record, index) => {
-              return {
-                onClick: () => {
-                  this.onRowClick(record, index)
-                }
-              }
-            }}
+            rowSelection="checkbox"
+            selectedRowKeys={this.state.selectedRowKeys}
+            selectedItem={this.state.selectedItem}
+            selectedIds={this.state.selectedIds}
           />
         </div>
         <Modal
