@@ -47,7 +47,7 @@ class Order extends Component {
   ]
   renderItemList = () => {
     let _this = this
-    axios.requestList(this, '/order/list', this.params, true)
+    axios.requestList(_this, '/order/list', this.params, true)
   }
   handleClick = () => {
     let item = this.state.selectedItem

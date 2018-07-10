@@ -4,6 +4,19 @@ import {Modal} from 'antd';
 import Utils from '../utils/utils';
 
 export default class Axios{
+  static jsonp(options){
+    return  new Promise((resolve, reject) => {
+      JsonP(options.url, {
+        param: 'callback'
+      }, function(err,data){
+        if (data.cod == 200) {
+          resolve(data)
+        } else{
+          reject(data.message)
+        }
+      })
+    })
+  }
   static requestList(_this, url, params, isMock){
     var data = {
       params: params,
@@ -26,15 +39,6 @@ export default class Axios{
           })
         })
       }
-    })
-  }
-  static jsonp(options){
-    new Promise((resolve, reject) => {
-      JsonP(options.url, {
-        param: 'callback'
-      }, function(err,response){
-        //todo
-      })
     })
   }
   static ajax(options){

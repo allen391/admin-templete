@@ -10,10 +10,10 @@ class Admin extends Component {
   render() {
     return (
       <Row className="container">
-        <Col span="4" className="nav-left">
+        <Col span="5" className="nav-left">
           <NavLeft />
         </Col>
-        <Col span="20" className="main">
+        <Col span="19" className="main">
           <Header></Header>
           <Row className="content">
             {this.props.children}

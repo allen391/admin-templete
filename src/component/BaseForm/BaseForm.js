@@ -78,6 +78,15 @@ class BaseForm extends Component {
             <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD"/>
           </FormItem>
           formItemList.push(end_time)
+        } else if(item.type == 'DATE'){
+          const date = <FormItem label={label} key={field}>
+            {
+              getFieldDecorator([field])(
+                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD"/>
+              )
+            }
+          </FormItem>
+          formItemList.push(date)
         }
       })
     }

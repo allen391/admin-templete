@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import App from './app';
 import Admin from './admin';
 import Login from '../src/pages/login/login';
@@ -12,11 +12,12 @@ import City from './pages/city/index';
 import Order from './pages/order/index';
 import Common from './common';
 import OrderDetail from './pages/order/detail';
+import User from './pages/user/index'
 
 export default class IRouter extends Component{
   render(){
     return(
-      <HashRouter>
+      <Router>
         <App>
           <Route path="/login" component={Login} />
           <Route path="/admin" render={() => 
@@ -28,17 +29,18 @@ export default class IRouter extends Component{
                 <Route path="/admin/table/basic" component={BasicTable} />
                 <Route path="/admin/city" component={City} />
                 <Route path="/admin/order" component={Order} />
+                <Route path="/admin/user" component={User} />
                 <Route component={NoMatch} />
               </Switch>
             </Admin>
           } />
-          <Route path="/common" render={() => 
+          <Router path="/common" render={() => 
             <Common>
               <Route path="/common/order/detail/:orderId" component={OrderDetail}/>
             </Common>
           }/>
         </App>
-      </HashRouter>
+      </Router>
     )
   }
 }

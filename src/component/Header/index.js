@@ -2,37 +2,26 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import './index.less';
 import Util from '../../utils/utils';
-// import axios from '../../axios/index';
-
+import Weather from '../weather/index';
 class Header extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      userName: 'Allencth'
     };
   };
-  
   componentWillMount(){
     setInterval(() => {
       let sysTime = Util.formateDate(new Date().getTime())
       this.setState({sysTime})
     }, 1000)
-    // this.getWeatherAPIData();
   }
-  // getWeatherAPIData(){
-  //   axios.jsonp({
-  //     url: ''
-  //   }).then((res) => {
-  //     if (res.status === 'success') {
-  //       let data = res.results[0].weather_data[0]
-  //       this.setState({
-  //         dayPictureUrl: data.dayPictureUrl,
-  //         weather: data.weather
-  //       })
-  //     }
-  //   })
-  // }
   render() {
     const menuType = this.props.menuType
+    const weatherConfig = {
+      city: 'Brisbane',
+      appid: '1d8b0e3ad58a9f70188f4abaa1c8336a'
+    }
     return (
       <div className="header">
         <Row className="header-top">
@@ -44,7 +33,7 @@ class Header extends Component {
               </Col>:null
           }
           <Col span={menuType? 18:24}>
-            <span>Welcome, xxx</span>
+            <span>Welcome, {this.state.userName}</span>
             <a href="#">Logout</a>
           </Col>
         </Row>
@@ -52,16 +41,12 @@ class Header extends Component {
           menuType? '':
           <Row className="breadcrumb">
             <Col span="4" className="breadcrumb-title">
+              {/*make it dynamic later*/}
               HomePage
             </Col>
             <Col span="20" className="weather">
               <span className="date">{this.state.sysTime}</span>
-              <span className="weather-img">
-                <img src="{this.state.dayPictureUrl}" alt=""/>
-              </span>
-              <span className="weather-detail">
-                qing
-              </span>
+              <Weather weatherConfig={weatherConfig}/>
             </Col>
           </Row>
         }

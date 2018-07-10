@@ -39,7 +39,6 @@ class ETable extends Component {
     const rowSelection = {
       type: 'radio',
       selectedRowKeys,
-      onChange: this.onSelectChange
     }
     if (row_selection === false || row_selection === null) {
       row_selection = false
@@ -55,6 +54,9 @@ class ETable extends Component {
             onRow={(record, index) => {
               return {
                 onClick: () => {
+                  if (!row_selection) {
+                    return
+                  }
                   this.onRowClick(record, index)
                 }
               }
