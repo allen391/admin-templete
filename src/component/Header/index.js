@@ -19,7 +19,6 @@ class Header extends Component {
   render() {
     const menuType = this.props.menuType
     const weatherConfig = {
-      city: 'Brisbane',
       appid: '1d8b0e3ad58a9f70188f4abaa1c8336a'
     }
     return (

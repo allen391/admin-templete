@@ -33,59 +33,59 @@ class OrderDetail extends Component {
           orderInfo: res.result
         })
       }
-      this.renderMap(res.result)
+
     })
   }
   
-  renderMap = (result) => {
-    this.map = new window.BMap.Map('orderDetailMap')
-    this.addMapControl()
-    this.drawBikeRoute(result.position_list)
-  }
+  // renderMap = (result) => {
+  //   this.map = new window.BMap.Map('orderDetailMap')
+  //   this.addMapControl()
+  //   this.drawBikeRoute(result.position_list)
+  // }
 
-  addMapControl = () => {
-    let map =  this.map
-    map.addControl(new window.BMap.ScaleControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
-    map.addControl(new window.BMap.NavigationControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
-  }
+  // addMapControl = () => {
+  //   let map =  this.map
+  //   map.addControl(new window.BMap.ScaleControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
+  //   map.addControl(new window.BMap.NavigationControl({anchor: window.BMAP_ANCHOR_TOP_RIGHT}))
+  // }
 
-  drawBikeRoute = (positionList) => {
-    let map = this.map
-    let startPoint = ''
-    let endPoint = ''
-    if (positionList > 0) {
-      let first = positionList[0]
-      let last = positionList[positionList.length-1]
-      startPoint = new window.BMap.Point(first.lon, first.lat)
-      let startIcon = new window.BMap.Icon('/assets/start_point.png', new window.BMap.Size(36,42), {
-        imageSize: new window.BMap.Size(36,42),
-        anchor: new window.BMap.Size(18, 42)
-      })
-      let startMarker = new window.BMap.Marker(startPoint, {icon: startIcon})
-      this.map.addOverlay(startMarker)
+  // drawBikeRoute = (positionList) => {
+  //   let map = this.map
+  //   let startPoint = ''
+  //   let endPoint = ''
+  //   if (positionList > 0) {
+  //     let first = positionList[0]
+  //     let last = positionList[positionList.length-1]
+  //     startPoint = new window.BMap.Point(first.lon, first.lat)
+  //     let startIcon = new window.BMap.Icon('/assets/start_point.png', new window.BMap.Size(36,42), {
+  //       imageSize: new window.BMap.Size(36,42),
+  //       anchor: new window.BMap.Size(18, 42)
+  //     })
+  //     let startMarker = new window.BMap.Marker(startPoint, {icon: startIcon})
+  //     this.map.addOverlay(startMarker)
 
-      endPoint = new window.BMap.Point(last.lon, last.lat)
-      let endIcon = new window.BMap.Icon('/assets/end_point.png', new window.BMap.Size(36, 42), {
-        imageSize: new window.BMap.Size(36, 42),
-        anchor: new window.BMap.Size(18, 42)
-      })
-      let endMarker = new window.BMap.Marker(endPoint, {icon: endIcon})
-      this.map.addOverlay(endMarker)
+  //     endPoint = new window.BMap.Point(last.lon, last.lat)
+  //     let endIcon = new window.BMap.Icon('/assets/end_point.png', new window.BMap.Size(36, 42), {
+  //       imageSize: new window.BMap.Size(36, 42),
+  //       anchor: new window.BMap.Size(18, 42)
+  //     })
+  //     let endMarker = new window.BMap.Marker(endPoint, {icon: endIcon})
+  //     this.map.addOverlay(endMarker)
 
-      //connect the route between endpoint with startpoint
-      let trackPoint = []
-      for (let i = 0; i < positionList.length; i++) {
-        const point = positionList[i]
-        trackPoint.push(new window.BMap.Point(point.lon, point.lat))
-      }
-      let polyline = new window.BMap.Polyline(trackPoint, {
-        strokeColor: '#1869AD',
-        strokeWeight: 3,
-        strokeOpacity: 1
-      })
-      this.map.addOverlay(polyline)
-    }
-  }
+  //     //connect the route between endpoint with startpoint
+  //     let trackPoint = []
+  //     for (let i = 0; i < positionList.length; i++) {
+  //       const point = positionList[i]
+  //       trackPoint.push(new window.BMap.Point(point.lon, point.lat))
+  //     }
+  //     let polyline = new window.BMap.Polyline(trackPoint, {
+  //       strokeColor: '#1869AD',
+  //       strokeWeight: 3,
+  //       strokeOpacity: 1
+  //     })
+  //     this.map.addOverlay(polyline)
+  //   }
+  // }
   render() {
     const info = this.state.orderInfo || {}
     return (

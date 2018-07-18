@@ -19,6 +19,7 @@ npm start
 - [ ] Google Map
 - [ ] Baidu Map
 - [ ] Permission setup 
+- [x] Weather API composition 
 
 ### Main desired implemented page
 - [x] Order management

@@ -102,7 +102,7 @@ class Order extends Component {
       })
       return
     }
-    window.open(`#/common/order/detail/${item.id}`, '_blank')
+    window.open(`/#/common/order/detail/${item.id}`, '_blank')
   }
   handleFilter = (params) => {
     this.params = params
@@ -177,7 +177,7 @@ class Order extends Component {
             columns={columns}
             dataSource={this.state.list}
             pagination={this.state.pagination}
-            rowSelection="checkbox"
+            rowSelection="radio"
             selectedRowKeys={this.state.selectedRowKeys}
             selectedItem={this.state.selectedItem}
             selectedIds={this.state.selectedIds}

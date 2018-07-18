@@ -8,7 +8,7 @@ class ETable extends Component {
     let rowSelection = this.props.rowSelection
     if (rowSelection == 'checkbox') {
       let selectedRowKeys = this.props.selectedRowKeys
-      let selectedItem = this.props.selectedItem || []
+      let selectedItem = this.props.selectedItem
       let selectedIds = this.props.selectedIds
       if (selectedIds) {
         const i = selectedIds.indexOf(record.id)

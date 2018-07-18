@@ -101,11 +101,11 @@ const menuList = [
     },
     {
         title: '图标',
-        key: '/charts',
+        key: '/admin/charts',
         children: [
             {
                 title: '柱形图',
-                key: '/charts/bar'
+                key: '/admin/charts/bar'
             },
             {
                 title: '饼图',

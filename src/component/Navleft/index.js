@@ -17,7 +17,8 @@ class NavLeft extends Component {
     const menuTreeNode = this.renderMenu(MenuConfig)
     this.setState({menuTreeNode})
   }
-  //菜单渲染
+
+  //render the left side navi from the MenuConfig
   renderMenu = (data) => {
     return data.map((item) => {
       if(item.children){
